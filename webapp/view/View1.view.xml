@@ -1,0 +1,110 @@
+<mvc:View controllerName="com.framecharts.ZFrameCharts.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:core="sap.ui.core"
+	xmlns:viz.data="sap.viz.ui5.data" height="100%">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<ComboBox id="idcb" change="Onchange" showSecondaryValues="true" items="{ path: '/ProductCollection', sorter: { path: 'ProductId' } }"
+						placeholder="Please Select a Product">
+						<core:ListItem key="{ProductId}" text="{ProductId}" additionalText="{Name}"/>
+					</ComboBox>
+					<layout:FixFlex id='chartFixFlex' minFlexSize="250">
+						<!--Below is the setting panel -->
+						<!--<layout:fixContent>-->
+						<!--    <Panel id='settingsPanel' class="panelStyle" expandable="true" expanded="true" headerText="Settings" width="auto">-->
+						<!--        <content>-->
+						<!--            <HBox class='settingsHBox'>-->
+						<!--            <VBox class='settingsBox'>-->
+						<!--                <Label text="{/dataset/name}" design="Bold" class='settingsLabel'></Label>-->
+						<!--                <RadioButtonGroup id='datasetRadioGroup'-->
+						<!--                        buttons="{path: '/dataset/values'}">-->
+						<!--                    <buttons>-->
+						<!--                        <RadioButton class='settingsRadio' text="{name}" select="onDatasetSelected"/>-->
+						<!--                    </buttons>-->
+						<!--                </RadioButtonGroup>-->
+						<!--            </VBox>-->
+						<!--            <VBox class='settingsBox'>-->
+						<!--                <Label text='{/series/name}' design="Bold" class='settingsLabel'></Label>-->
+						<!--                <RadioButtonGroup id='seriesRadioGroup'-->
+						<!--                    buttons="{path: '/series/values'}" >-->
+						<!--                    <buttons>-->
+						<!--                        <RadioButton class='settingsRadio' text="{name}" select='onSeriesSelected'/>-->
+						<!--                    </buttons>-->
+						<!--                </RadioButtonGroup>-->
+						<!--            </VBox>-->
+						<!--<VBox class='settingsBox'>-->
+						<!--	<Label text='{/dataLabel/name}' design="Bold" class='settingsLabel'></Label>-->
+						<!--	<Switch class='settingsSwitch' state="{/dataLabel/defaultState}" change='onDataLabelChanged'>-->
+						<!--		<layoutData>-->
+						<!--			<FlexItemData growFactor="1"/>-->
+						<!--		</layoutData>-->
+						<!--	</Switch>-->
+						<!--</VBox>-->
+						<!--<VBox class='settingsBox'>-->
+						<!--	<Label text='{/axisTitle/name}' design="Bold" class='settingsLabel'></Label>-->
+						<!--	<Switch class='settingsSwitch' state="{/axisTitle/defaultState}" change='onAxisTitleChanged'>-->
+						<!--        <layoutData>-->
+						<!--                        <FlexItemData growFactor="1" />-->
+						<!--                    </layoutData>-->
+						<!--                </Switch>-->
+						<!--            </VBox>-->
+						<!--            </HBox>-->
+						<!--        </content>-->
+						<!--    </Panel>-->
+						<!--</layout:fixContent>-->
+						<layout:flexContent >
+							<viz:Popover id="idPopOver"></viz:Popover>
+							<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='column'>
+								<viz:dataset>
+									<viz.data:FlattenedDataset data="{/results}">
+										<viz.data:dimensions>
+											<viz.data:DimensionDefinition name="Quantity" value="{Quantity}"/>
+										</viz.data:dimensions>
+										<viz.data:measures>
+											<viz.data:MeasureDefinition name="Price" value="{Price}"/>
+											<viz.data:MeasureDefinition name="Width" value="{Width}"/>
+											<viz.data:MeasureDefinition name="Depth" value="{Depth}"/>
+											<viz.data:MeasureDefinition name="Height" value="{Height}"/>
+											<viz.data:MeasureDefinition name="WeightMeasure" value="{WeightMeasure}"/>
+										</viz.data:measures>
+									</viz.data:FlattenedDataset>
+								</viz:dataset>
+								<viz:feeds>
+									<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Price,Width,Depth,Height,WeightMeasure"/>
+									<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Quantity"/>
+								</viz:feeds>
+							</viz:VizFrame>
+						</layout:flexContent>
+					</layout:FixFlex>
+					<layout:FixFlex id='pieFixFlex' minFlexSize="250">
+						<layout:flexContent>
+							<viz:Popover id="idPopOver1"></viz:Popover>
+							<viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='pie'>
+								<viz:dataset>
+									<viz.data:FlattenedDataset data="{/results}">
+										<viz.data:dimensions>
+											<viz.data:DimensionDefinition name="Quantity" value="{Quantity}"/>
+										</viz.data:dimensions>
+										<viz.data:measures>
+											<!--<viz.data:MeasureDefinition name="Price"-->
+											<!--    value="{Price}" />-->
+											<viz.data:MeasureDefinition name="Width" value="{Width}"/>
+											<viz.data:MeasureDefinition name="Depth" value="{Depth}"/>
+											<viz.data:MeasureDefinition name="Height" value="{Height}"/>
+											<viz.data:MeasureDefinition name="WeightMeasure" value="{WeightMeasure}"/>
+										</viz.data:measures>
+									</viz.data:FlattenedDataset>
+								</viz:dataset>
+								<viz:feeds>
+									<viz.feeds:FeedItem uid="size" type="Measure" values="Width,Depth,Height,WeightMeasure"/>
+									<viz.feeds:FeedItem uid="color" type="Dimension" values="Quantity"/>
+								</viz:feeds>
+							</viz:VizFrame>
+						</layout:flexContent>
+					</layout:FixFlex>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
